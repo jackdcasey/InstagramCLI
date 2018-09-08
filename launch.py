@@ -1,8 +1,4 @@
-#This function connects to the instagram API, then uses the Azure OCR API to give the user a pure reading instagram feed
-#https://medium.com/@dvoiak.stepan/https-medium-com-dvoiak-stepan-instagram-analitics-with-unofficial-api-ipython-and-matplotlib-a9f3f8b2b16a
-#https://github.com/billcccheng/instagram-terminal-news-feed/blob/master/start.py
-#https://www.kdnuggets.com/2017/08/instagram-python-data-analysis.html
-
+#This function connects to the instagram API, then uses the Azure OCR API to give the user a pure reading instagram feed 
 
 from InstagramAPI import InstagramAPI
 import getpass, http, json, urllib, base64
@@ -11,7 +7,7 @@ def getImageDesc(image_url):
     headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'f78d91e88f874eb5b43fffcf43070467',
+    'Ocp-Apim-Subscription-Key': '***Key For Azure***',
     }
 
     params = urllib.parse.urlencode({
@@ -47,17 +43,17 @@ print("Successfully logged in as: {}".format(username))
 
 API.timelineFeed()
 timeline = API.LastJson
-print("Variable timeline is of type {}".format(type(timeline)))
-timelinePosts = timeline['items']
+timeline_posts = timeline['items']
 
-print("Variable timelinePosts is type: {}".format(type(timelinePosts)))
-print(timelinePosts)
-posting_users=[]
+posts=[]
 
-for post in timelinePosts:
-    posting_users.append(post['taken_at'])
-
-print(posting_users)
-print(len(posting_users))
-
-
+for post in timeline_posts:
+    try:
+        posts.append({
+        'username': post['user']['username'],
+        'number_likes': str(post['like_count']),
+        'caption': post['caption']['text'],
+        'image_url': post['image_versions2']['candidates'][0]['url']
+        })
+    except KeyError:
+        pass
