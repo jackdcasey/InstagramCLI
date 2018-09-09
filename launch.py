@@ -1,5 +1,3 @@
-#This function connects to the instagram API, then uses the Azure content recognition API to give the user a reading instagram feed 
-
 from InstagramAPI import InstagramAPI
 import getpass, http, json, urllib, base64, time
 
