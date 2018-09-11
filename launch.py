@@ -5,7 +5,7 @@ def getImageDesc(image_url):
     headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '##### Token #####',
+    'Ocp-Apim-Subscription-Key': '### KEY ###',
     }
 
     params = urllib.parse.urlencode({
@@ -27,19 +27,25 @@ def getImageDesc(image_url):
         pass
 
 def login():
+    print("Please enter Instagram login credentials: \n")
     username = input('Username: ')
     password = getpass.getpass(prompt='Password: ')
-    print("Logging in...")
+    print("Logging in... \n")
 
     global API
     API = InstagramAPI(username,password)
     API.login()
+    if API.isLoggedIn:
+        pass
+    else:
+        print("Unable to log in, please try again: \n")
+        login()
 
     API.getProfileData()
     result = API.LastJson
-    username = result['user']['username']
+    successful_username = result['user']['username']
 
-    print("Successfully logged in as: {}".format(username))
+    print("Successfully logged in as: {}".format(successful_username))
 
 def getPosts():
 
