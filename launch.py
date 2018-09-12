@@ -1,5 +1,5 @@
 from InstagramAPI import InstagramAPI
-import getpass, http, json, urllib, base64, time
+import getpass, http, json, urllib, base64, time, os
 
 def getImageDesc(image_url):
     headers = {
@@ -41,12 +41,6 @@ def login():
         print("Unable to log in, please try again: \n")
         login()
 
-    API.getProfileData()
-    result = API.LastJson
-    successful_username = result['user']['username']
-
-    print("Successfully logged in as: {}".format(successful_username))
-
 def getPosts():
 
     API.timelineFeed()
@@ -68,16 +62,29 @@ def getPosts():
     return posts
 
 def printPosts(posts):
+    input("Press enter to load first post: ")
+    os.system('cls||clear')
     for post in posts:
-        print("\n \n ~ ~ ~ ~ ~ \n Loading Post... \n ~ ~ ~ ~ ~ \n \n")
+        print("\n#########\n\n")
         description = getImageDesc(post['image_url'])
         
-        time.sleep(2)
         print("{0} posted a picture of {1}, it has {2} likes. \n".format(post['username'], description, post['number_likes']))
         print("Caption: \n \n{0}".format(post['caption']))
-        time.sleep(0.5)
+        print("\n\n#########\n")
+        input("Load next Post: ")
+        os.system('cls||clear')
+    restart = input("\nOut of posts. Reload? (y/n): ")
+    if restart.lower() == "n":
+        exit()
+    else: 
+        printPosts(getPosts())
 
-login()
+def exit():
+    print("\nThank you for using this extremely useful tool! \n\n ")
 
-printPosts(getPosts())
+def main():
+    login()
+    printPosts(getPosts())
 
+if __name__ == '__main__':
+    main()
