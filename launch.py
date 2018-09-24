@@ -5,7 +5,7 @@ def getImageDesc(image_url):
     headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '### KEY ###',
+    'Ocp-Apim-Subscription-Key': 'f78d91e88f874eb5b43fffcf43070467',
     }
 
     params = urllib.parse.urlencode({
@@ -24,7 +24,7 @@ def getImageDesc(image_url):
     try:
         return output['description']['captions'][0]['text']
     except:
-        pass
+        return "some sort of image type thing"
 
 def login():
     print("Please enter Instagram login credentials: \n")
@@ -42,7 +42,6 @@ def login():
         login()
 
 def getPosts():
-
     API.timelineFeed()
     timeline = API.LastJson
     timeline_posts = timeline['items']
