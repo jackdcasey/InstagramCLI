@@ -2,7 +2,7 @@
 
 This one goes out to all the stealthy procrastinators on that CLI grind ✊
 
-This allows you to scroll instagram, with descriptions of users posts 📷
+Uses the Computer Vision API to describe users posts to you 📷
 
 ![](InstagramCLI.gif)
 
