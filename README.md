@@ -1,3 +1,5 @@
 # InstagramCLI
 
-Allows users to read Instagram from a command line interface
+This one goes out to all the stealthy procrastinators on that CLI grind ✊
+
+![](InstagramCLI.gif)
