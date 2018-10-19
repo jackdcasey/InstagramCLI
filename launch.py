@@ -5,7 +5,7 @@ def getImageDesc(image_url):
     headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '### KEY ###',
+    'Ocp-Apim-Subscription-Key': 'f78d91e88f874eb5b43fffcf43070467',
     }
 
     params = urllib.parse.urlencode({
@@ -24,9 +24,10 @@ def getImageDesc(image_url):
     try:
         return output['description']['captions'][0]['text']
     except:
-        pass
+        return "some sort of image type thing"
 
 def login():
+    os.system('cls||clear')
     print("Please enter Instagram login credentials: \n")
     username = input('Username: ')
     password = getpass.getpass(prompt='Password: ')
@@ -42,36 +43,41 @@ def login():
         login()
 
 def getPosts():
-
     API.timelineFeed()
     timeline = API.LastJson
     timeline_posts = timeline['items']
 
     posts=[]
-
-    for post in timeline_posts:
+    for post in timeline_posts:  
         try:
             posts.append({
             'username': post['user']['username'],
             'number_likes': str(post['like_count']),
             'caption': post['caption']['text'],
-            'image_url': post['image_versions2']['candidates'][0]['url']
+            'image_url': post['image_versions2']['candidates'][0]['url'],
             })
         except KeyError:
             pass
     return posts
 
 def printPosts(posts):
+    n = 0
+    nextPostDesc = getImageDesc(posts[n]['image_url'])
     input("Press enter to load first post: ")
     os.system('cls||clear')
-    for post in posts:
+
+    for post in posts:   
         print("\n#########\n\n")
-        description = getImageDesc(post['image_url'])
         
-        print("{0} posted a picture of {1}, it has {2} likes. \n".format(post['username'], description, post['number_likes']))
+        print("{0} posted a picture of {1}, it has {2} likes. \n".format(post['username'], nextPostDesc, post['number_likes']))
         print("Caption: \n \n{0}".format(post['caption']))
         print("\n\n#########\n")
-        input("Load next Post: ")
+        n += 1
+        try:
+            nextPostDesc = getImageDesc(posts[n]['image_url'])
+        except:
+            pass
+        input("Show next Post: ")
         os.system('cls||clear')
     restart = input("\nOut of posts. Reload? (y/n): ")
     if restart.lower() == "n":
