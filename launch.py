@@ -5,7 +5,7 @@ def getImageDesc(image_url):
     headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'f78d91e88f874eb5b43fffcf43070467',
+    'Ocp-Apim-Subscription-Key': '### Subscription Key ###',
     }
 
     params = urllib.parse.urlencode({
